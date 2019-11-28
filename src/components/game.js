@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Board from './board'
 import {connect} from 'react-redux'
 import calculateWinner from '../helper/calculateWinner'
+import '../index.css'
 
 class Game extends React.Component {
     render() {
@@ -15,7 +16,7 @@ class Game extends React.Component {
           'Go to game start';
         return (
           <li key={move}>
-            <button onClick={() => this.props.jumpTo(move)}>{desc}</button>
+            <button className = "button" onClick={() => this.props.jumpTo(move)}>{desc}</button>
           </li>
         );
       });
