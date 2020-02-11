@@ -1,4 +1,6 @@
 import { createStore } from 'redux'
+import { put, takeEvery, all } from 'redux-saga/effects'
+
 import calculateWinner from '../helper/calculateWinner'
 
 const initialState = {
@@ -8,10 +10,12 @@ const initialState = {
       }
     ],
     stepNumber: 0,
-    xIsNext: true
+    xIsNext: true,
+    isFinished: false
   }
   
   const reducer = (state = initialState, action )  => {
+    console.log(action);
     switch(action.type)
     {
       case 'CLICK':
@@ -45,7 +49,21 @@ const initialState = {
             stepNumber: action.move,
             xIsNext: (action.move %2 === 0)
           }
-        }  
+        }
+      case 'UPDATE' :
+        {
+          return {
+            history: [
+              {
+                squares: Array(9).fill(null)
+              }
+            ],
+            stepNumber: 0,
+            xIsNext: true,
+            isFinished: false
+          }
+        }
+
     }
     return state
   }

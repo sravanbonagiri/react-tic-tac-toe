@@ -7,6 +7,10 @@ ol, ul {
   padding-left: 30px;
 }
 
+.upload-data {
+  margin-bottom: 15px;
+}
+
 .board-row:after {
   clear: both;
   content: "";

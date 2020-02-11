@@ -11,6 +11,7 @@ class Game extends React.Component {
       const current = history[this.props.state.stepNumber];
       const winner = calculateWinner(current.squares);
       const moves = history.map((step, move) => {
+        console.log(move);
         const desc = move ?
           'Go to move #' + move :
           'Go to game start';
@@ -24,6 +25,8 @@ class Game extends React.Component {
       let status;
       if (winner) {
         status = "Winner: " + winner;
+        this.props.state.isFinished = true;
+        //moves = []
       } else {
         status = "Next player: " + (this.props.state.xIsNext ? "X" : "O");
       }
@@ -31,10 +34,15 @@ class Game extends React.Component {
       return (
         <div className="game">
           <div className="game-board">
-            <Board
-              squares={current.squares}
-              onClick={i => this.props.handleClick(i)}
-            />
+          {this.props.state.isFinished && (					
+            <div className = "upload-data">
+              <button className = "button" onClick={() => this.props.updateData(this.props.state)}>Upload and Restart Game</button>
+            </div>
+				  )}
+          <Board
+            squares={current.squares}
+            onClick={i => this.props.handleClick(i)}
+          />
           </div>
           <div className="game-info">
             <div>{status}</div>
@@ -54,7 +62,8 @@ class Game extends React.Component {
   function mapDispatchToProps(dispatch){
     return {
       handleClick: (i) => dispatch({type: 'CLICK', i}),
-      jumpTo: (move) => dispatch({type: 'JUMPTO', move})
+      jumpTo: (move) => dispatch({type: 'JUMPTO', move}),
+      updateData: (state) => dispatch({type: 'UPDATE', state})
     }
   }
 
